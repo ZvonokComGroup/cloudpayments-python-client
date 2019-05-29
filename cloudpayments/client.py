@@ -9,15 +9,15 @@ from .utils import format_datetime, format_date
 
 
 class CloudPayments(object):
-    URL = 'https://api.cloudpayments.ru/'
 
-    def __init__(self, public_id, api_secret):
+    def __init__(self, public_id, api_secret, base_url='https://api.cloudpayments.ru/'):
         self.public_id = public_id
         self.api_secret = api_secret
+        self.base_url = base_url
 
     def _send_request(self, endpoint, params=None, headers=None):
         auth = HTTPBasicAuth(self.public_id, self.api_secret)
-        response = requests.post(self.URL + endpoint, json=params, auth=auth, 
+        response = requests.post(self.base_url + endpoint, json=params, auth=auth,
                                  headers=headers)
         return response.json(parse_float=decimal.Decimal)
 
@@ -284,7 +284,7 @@ class CloudPayments(object):
             return Order.from_dict(response['Model'])
         raise CloudPaymentsError(response)
 
-    def create_receipt(self, inn, receipt_type, customer_receipt, 
+    def create_receipt(self, inn, receipt_type, customer_receipt,
                        invoice_id=None, account_id=None, request_id=None):
         if isinstance(customer_receipt, Receipt):
             customer_receipt = customer_receipt.to_dict()

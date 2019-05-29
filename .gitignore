@@ -38,3 +38,5 @@ nosetests.xml
 # IDE
 .idea
 *.iml
+*.wpr
+*.wpu
