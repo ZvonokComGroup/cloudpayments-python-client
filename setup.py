@@ -18,7 +18,7 @@ else:
 
 
 setup(
-    name = 'cloudpayments',
+    name = 'cloudpayments-python-client',
     packages = ['cloudpayments'],
 
     description = 'CloudPayments Python Client Library',
